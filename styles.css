@@ -1,0 +1,415 @@
+html, body {
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  background: #ffe6f0;
+  min-height: 100vh;
+  min-width: 100vw;
+  font-family: 'Segoe Script', cursive, Arial, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+#corazones {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.main-center {
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  gap: 32px;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+.mensaje-inicial {
+  color: #d32f2f;
+  font-size: 1.35em;
+  font-family: 'Segoe Script', cursive, Arial, sans-serif;
+  background: rgba(255,255,255,0.85);
+  padding: 18px 32px;
+  border-radius: 18px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+  z-index: 20;
+  text-align: center;
+  max-width: 90vw;
+  margin: 0 auto;
+  opacity: 1;
+  position: relative;
+  animation: mensaje-brilla 2.5s infinite alternate;
+  box-sizing: border-box;
+}
+
+@keyframes mensaje-brilla {
+  0% { box-shadow: 0 2px 12px #e5737380; }
+  100% { box-shadow: 0 4px 24px #ffb6c180; }
+}
+
+/* --- CARTA DOBLADA --- */
+.carta-doblada {
+  min-width: 320px;
+  max-width: 600px;
+  width: 90vw;
+  min-height: 80px;
+  perspective: 1200px;
+  position: relative;
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  background: none;
+  transition: filter 0.4s;
+  margin: 0 auto;
+  animation: carta-brilla 2.5s infinite alternate, carta-entrada 1.2s cubic-bezier(.77,0,.18,1);
+  box-sizing: border-box;
+  overflow: visible;
+}
+
+@keyframes carta-brilla {
+  0% { filter: drop-shadow(0 0 0 #ffb6c1); }
+  100% { filter: drop-shadow(0 0 16px #ffb6c1); }
+}
+
+/* Sello animado */
+.sello-carta {
+  position: absolute;
+  left: 50%;
+  top: -32px;
+  transform: translateX(-50%);
+  width: 48px;
+  height: 48px;
+  background: #ffb6c1;
+  border: 3px solid #fff;
+  border-radius: 50%;
+  box-shadow: 0 2px 12px #e5737380;
+  z-index: 6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: sello-late 1.2s infinite alternate;
+}
+
+@keyframes sello-late {
+  0% { transform: translateX(-50%) scale(1);}
+  100% { transform: translateX(-50%) scale(1.12);}
+}
+
+.corazon-sello {
+  font-size: 2em;
+  color: #d32f2f;
+  animation: corazon-late 1.2s infinite alternate;
+}
+
+@keyframes corazon-late {
+  0% { transform: scale(1);}
+  100% { transform: scale(1.18);}
+}
+
+/* Corazones decorativos */
+.decoracion-carta {
+  position: absolute;
+  font-size: 2.2em;
+  opacity: 0.7;
+  z-index: 5;
+  pointer-events: none;
+  animation: corazon-flota 2.5s infinite alternate;
+}
+.decoracion-izq {
+  left: -28px;
+  top: 60px;
+  color: #ff69b4;
+  animation-delay: 0.2s;
+}
+.decoracion-der {
+  right: -28px;
+  bottom: 40px;
+  color: #ff69b4;
+  animation-delay: 1.2s;
+}
+@keyframes corazon-flota {
+  0% { transform: translateY(0) scale(1);}
+  100% { transform: translateY(-12px) scale(1.12);}
+}
+
+.cara {
+  position: absolute;
+  width: 100%;
+  height: 50%;
+  left: 0;
+  background: #fff;
+  border: 2.5px solid #e57373;
+  border-bottom: none;
+  border-radius: 18px 18px 0 0;
+  box-shadow: 0 4px 16px #e5737320;
+  backface-visibility: hidden;
+  transition: transform 1s cubic-bezier(.77,0,.18,1);
+  z-index: 2;
+}
+
+.cara-frontal {
+  top: 0;
+  transform-origin: bottom center;
+  background: linear-gradient(180deg, #fff 80%, #ffe6f0 100%);
+}
+
+.cara-trasera {
+  bottom: 0;
+  height: 50%;
+  border-radius: 0 0 18px 18px;
+  border-top: none;
+  border-bottom: 2.5px solid #e57373;
+  box-shadow: 0 8px 24px #e5737320;
+  z-index: 1;
+  background: linear-gradient(0deg, #fff 80%, #ffe6f0 100%);
+}
+
+.carta-doblada.abierta .cara-frontal {
+  transform: rotateX(-180deg) scaleY(0.98);
+  box-shadow: 0 24px 48px #e5737360;
+}
+
+.carta-doblada.abierta .cara-trasera {
+  z-index: 3;
+}
+
+/* Contenido de la carta */
+.contenido-carta {
+  position: static;
+  width: 100%;
+  min-height: 120px;
+  background: #fffbe6;
+  border-radius: 18px;
+  box-shadow: 0 8px 32px #e5737360, 0 0 0 4px #e5737320 inset;
+  opacity: 0;
+  transform: scaleY(0.95) translateY(30px) scale(0.95);
+  transition: opacity 0.7s 0.5s, transform 0.7s 0.5s, min-height 0.5s;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  pointer-events: none;
+  padding: 0;
+  border: 2.5px dashed #e57373;
+  overflow: visible;
+  box-sizing: border-box;
+}
+
+.carta-doblada.abierta .contenido-carta {
+  opacity: 1;
+  transform: scaleY(1) translateY(0) scale(1.02);
+  pointer-events: auto;
+  transition-delay: 0.2s;
+  animation: carta-sombra 1.2s cubic-bezier(.77,0,.18,1), borde-brillante 2.5s infinite alternate;
+}
+
+@keyframes carta-sombra {
+  0% { box-shadow: 0 0 0 #e5737360; }
+  100% { box-shadow: 0 8px 32px #e5737360, 0 0 0 4px #e5737320 inset; }
+}
+
+@keyframes borde-brillante {
+  0% { box-shadow: 0 0 0 4px #e5737320 inset, 0 0 12px 2px #ffb6c1; }
+  50% { box-shadow: 0 0 0 4px #e5737320 inset, 0 0 32px 8px #ffb6c1; }
+  100% { box-shadow: 0 0 0 4px #e5737320 inset, 0 0 12px 2px #ffb6c1; }
+}
+
+/* Animación de entrada para la carta */
+.carta-doblada {
+  animation: carta-brilla 2.5s infinite alternate, carta-entrada 1.2s cubic-bezier(.77,0,.18,1);
+}
+@keyframes carta-entrada {
+  0% { opacity: 0; transform: scale(0.7) translateY(80px);}
+  100% { opacity: 1; transform: scale(1) translateY(0);}
+}
+
+/* Corazones decorativos girando */
+.decoracion-carta {
+  animation: corazon-flota 2.5s infinite alternate, corazon-gira 3s infinite linear;
+}
+@keyframes corazon-gira {
+  0% { transform: rotate(0deg) scale(1);}
+  100% { transform: rotate(360deg) scale(1.12);}
+}
+
+/* Sello con destello */
+.sello-carta::after {
+  content: '';
+  position: absolute;
+  top: 8px; left: 8px;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff8, transparent 70%);
+  opacity: 0.7;
+  pointer-events: none;
+  animation: sello-destello 2.2s infinite alternate;
+}
+@keyframes sello-destello {
+  0% { opacity: 0.7; transform: scale(1);}
+  100% { opacity: 0.2; transform: scale(1.25);}
+}
+
+/* Texto de la carta late al abrirse */
+.carta-doblada.abierta .texto-carta {
+  animation: texto-late 1.2s 1;
+}
+@keyframes texto-late {
+  0% { transform: scale(1);}
+  20% { transform: scale(1.04);}
+  40% { transform: scale(0.98);}
+  60% { transform: scale(1.02);}
+  80% { transform: scale(0.99);}
+  100% { transform: scale(1);}
+}
+
+.texto-carta {
+  margin: 0 auto;
+  padding: 56px 24px 32px 24px; /* padding-top: 56px para dejar espacio al sello */
+  font-size: 1.15em;
+  color: #d32f2f;
+  white-space: pre-line;
+  min-height: 100px;
+  letter-spacing: 1px;
+  font-family: 'Segoe Script', cursive, Arial, sans-serif;
+  text-align: center;
+  width: 100%;
+  opacity: 0;
+  transition: opacity 0.7s 1.2s;
+  background: none;
+  box-shadow: none;
+  border-radius: 0;
+  display: block;
+  word-break: break-word;
+  box-sizing: border-box;
+  overflow-wrap: break-word;
+}
+
+.carta-doblada.abierta .texto-carta {
+  opacity: 1;
+  animation: texto-late 1.2s 1;
+}
+
+/* --- NUEVOS ADORNOS Y ANIMACIONES --- */
+
+/* Sparkles (destellos) alrededor de la carta */
+.sparkle {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  pointer-events: none;
+  z-index: 12;
+  animation: sparkle-gira 2.5s linear infinite;
+}
+.sparkle1 { left: -18px; top: 10px; animation-delay: 0s;}
+.sparkle2 { right: -18px; top: 24px; animation-delay: 1s;}
+.sparkle3 { left: 10px; bottom: -18px; animation-delay: 1.5s;}
+.sparkle4 { right: 18px; bottom: 0; animation-delay: 0.7s;}
+@keyframes sparkle-gira {
+  0% { transform: rotate(0deg) scale(1);}
+  80% { transform: rotate(340deg) scale(1.2);}
+  100% { transform: rotate(360deg) scale(1);}
+}
+.sparkle svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 0 4px #fff) drop-shadow(0 0 8px #ffb6c1);
+}
+
+/* Corazones parpadeando en las esquinas */
+.decoracion-carta {
+  animation: corazon-flota 2.5s infinite alternate, corazon-gira 3s infinite linear, corazon-brilla 2s infinite alternate;
+}
+@keyframes corazon-brilla {
+  0% { filter: drop-shadow(0 0 0 #ff69b4); opacity: 0.7;}
+  50% { filter: drop-shadow(0 0 8px #ff69b4); opacity: 1;}
+  100% { filter: drop-shadow(0 0 0 #ff69b4); opacity: 0.7;}
+}
+
+/* Estrellitas animadas en las esquinas */
+.estrella-carta {
+  position: absolute;
+  font-size: 1.5em;
+  color: #ffe066;
+  opacity: 0.8;
+  z-index: 11;
+  animation: estrella-brilla 1.8s infinite alternate;
+}
+.estrella-izq { left: 6px; top: 16px; animation-delay: 0.3s;}
+.estrella-der { right: 12px; bottom: 18px; animation-delay: 1.1s;}
+@keyframes estrella-brilla {
+  0% { opacity: 0.5; transform: scale(1);}
+  100% { opacity: 1; transform: scale(1.25);}
+}
+
+/* Mensaje inicial animado */
+.mensaje-inicial {
+  animation: mensaje-brilla 2.5s infinite alternate, mensaje-entrada 1.2s cubic-bezier(.77,0,.18,1);
+}
+@keyframes mensaje-entrada {
+  0% { opacity: 0; transform: scale(0.7) translateY(-40px);}
+  100% { opacity: 1; transform: scale(1) translateY(0);}
+}
+
+/* Texto de la carta late y brilla */
+.carta-doblada.abierta .texto-carta {
+  opacity: 1;
+  animation: texto-late 1.2s 1, texto-brilla 2.5s infinite alternate;
+}
+@keyframes texto-brilla {
+  0% { text-shadow: 0 0 0 #ffb6c1; }
+  100% { text-shadow: 0 0 8px #ffb6c1, 0 0 18px #fff; }
+}
+
+@media (max-width: 600px) {
+  .main-center {
+    gap: 18px;
+  }
+  .carta-doblada {
+    width: 98vw;
+    min-width: 180px;
+    max-width: 98vw;
+  }
+  .contenido-carta {
+    min-height: 80px;
+    padding: 0;
+  }
+  .texto-carta {
+    padding: 38px 8vw 18px 8vw;
+    font-size: 1.05em;
+    min-height: 60px;
+  }
+  .sello-carta {
+    width: 32px;
+    height: 32px;
+    top: -22px;
+  }
+  .corazon-sello {
+    font-size: 1.3em;
+  }
+  .decoracion-carta {
+    font-size: 1.3em;
+    left: -14px;
+    right: -14px;
+  }
+}

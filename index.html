@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carta de Amor</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <canvas id="corazones"></canvas>
+  <div class="main-center">
+    <div class="mensaje-inicial" id="mensaje-inicial">
+      ✨💌 No sabia como decirtelo, pero toca el boton el boton blanco 💌✨
+    </div>
+    <div class="carta-doblada" id="carta-doblada">
+      <div class="sello-carta">
+        <span class="corazon-sello">❤</span>
+      </div>
+      <div class="cara cara-frontal"></div>
+      <div class="cara cara-trasera"></div>
+      <div class="decoracion-carta decoracion-izq">💖</div>
+      <div class="decoracion-carta decoracion-der">💖</div>
+      <div class="contenido-carta" id="contenido-carta">
+        <div class="texto-carta" id="texto-carta"></div>
+      </div>
+    </div>
+    <div class="mariposa-carta mariposa1">
+      <svg viewBox="0 0 32 32">
+        <ellipse cx="8" cy="16" rx="8" ry="12" fill="#ffb6c1"/>
+        <ellipse cx="24" cy="16" rx="8" ry="12" fill="#ffd700"/>
+        <rect x="14" y="10" width="4" height="12" rx="2" fill="#a0522d"/>
+      </svg>
+    </div>
+    <div class="mariposa-carta mariposa2">
+      <svg viewBox="0 0 32 32">
+        <ellipse cx="8" cy="16" rx="8" ry="12" fill="#90ee90"/>
+        <ellipse cx="24" cy="16" rx="8" ry="12" fill="#87cefa"/>
+        <rect x="14" y="10" width="4" height="12" rx="2" fill="#a0522d"/>
+      </svg>
+    </div>
+    <div class="mariposa-carta mariposa3">
+      <svg viewBox="0 0 32 32">
+        <ellipse cx="8" cy="16" rx="8" ry="12" fill="#ffb6c1"/>
+        <ellipse cx="24" cy="16" rx="8" ry="12" fill="#ffd700"/>
+        <rect x="14" y="10" width="4" height="12" rx="2" fill="#a0522d"/>
+      </svg>
+    </div>
+    <div class="nube-carta nube1">
+      <svg viewBox="0 0 60 28">
+        <ellipse cx="18" cy="18" rx="18" ry="10" fill="#fff"/>
+        <ellipse cx="40" cy="14" rx="20" ry="12" fill="#fff"/>
+      </svg>
+    </div>
+    <div class="nube-carta nube2">
+      <svg viewBox="0 0 60 28">
+        <ellipse cx="18" cy="18" rx="18" ry="10" fill="#fff"/>
+        <ellipse cx="40" cy="14" rx="20" ry="12" fill="#fff"/>
+      </svg>
+    </div>
+  </div>
+  <audio id="musica-fondo" src="musica2.mp3" loop></audio>
+  <script src="main.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('service-worker.js');
+      });
+    }
+  </script>
+</body>
+</html>
